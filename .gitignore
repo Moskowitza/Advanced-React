@@ -1,0 +1,4 @@
+.env
+node_modules/
+Advanced-React/sick-fits/backend/variables.env.sample/
+*.env
