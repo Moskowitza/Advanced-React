@@ -8,12 +8,28 @@ const Mutations = {
       }
     },info);
     return item;
+  },
+  updateItem(parent, args, ctx, info){
+    //take copy of the updates
+    const updates= {...args};
+    //remove the id from the update, we don't want to chage the id
+    delete updates.id
+    return ctx.db.mutation.updateItem({
+      data:updates,
+      where:{
+        id:args.id,
+      }
+    }, info);
+  },
+  async deleteItem(parent, args, ctx, info){
+    const where = {id: args.id};
+    // find item
+    const item = await ctx.db.query.item({where}, `{id title}`);
+    // check if the ownder has permissions to delete it
+    //delete it
+    return ctx.db.mutation.deleteItem({where}, info)
   }
+
 };
-// createDog(parent, args, ctx, info){
-//     global.dogs = global.dogs || [];
-//     const newDog = {name: args.name}
-//     global.dogs.push(newDog);
-//     return Dog;
-// },
+
 module.exports = Mutations;
