@@ -3,6 +3,7 @@ const { forwardTo }=require('prisma-binding');
 const Query = {
     items: forwardTo('db'),
     item: forwardTo('db'),
+    itemsConnection: forwardTo('db'),
 //Below is a custom reslover
     //   async items(parent, args, ctx, info) {
 //       console.log("HEEEY")
