@@ -11,11 +11,15 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/permissions": [
+    "/item": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/sell": [
+    "/items": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/permissions": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

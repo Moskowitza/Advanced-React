@@ -25,7 +25,7 @@ const Query = {
     //2 check to see if they have permissions
     hasPermission(ctx.request.user, ["ADMIN", "PERMISSIONUPDATE"]);
     // If it user exists and has permissions is true
-    return ctx.db.users({}, info);
+    return ctx.db.query.users({}, info);
   }
 };
 
