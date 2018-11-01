@@ -1,7 +1,7 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { randomBytes } = require('crypto');
-const { promisify } = require('util');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { randomBytes } = require("crypto");
+const { promisify } = require("util");
 
 const Mutations = {
   async createItem(parent, args, ctx, info) {
@@ -10,8 +10,8 @@ const Mutations = {
     const item = await ctx.db.mutation.createItem(
       {
         data: {
-          ...args,
-        },
+          ...args
+        }
       },
       info
     );
@@ -30,8 +30,8 @@ const Mutations = {
       {
         data: updates,
         where: {
-          id: args.id,
-        },
+          id: args.id
+        }
       },
       info
     );
@@ -56,17 +56,17 @@ const Mutations = {
         data: {
           ...args,
           password,
-          permissions: { set: ['USER'] },
-        },
+          permissions: { set: ["USER"] }
+        }
       },
       info
     );
     // create the JWT token for them
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     // We set the jwt as a cookie on the response
-    ctx.response.cookie('token', token, {
+    ctx.response.cookie("token", token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+      maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
     });
     // Finalllllly we return the user to the browser
     return user;
@@ -80,38 +80,37 @@ const Mutations = {
     // 2. Check if their password is correct
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
-      throw new Error('Invalid Password!');
+      throw new Error("Invalid Password!");
     }
     // 3. generate the JWT Token
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     // 4. Set the cookie with the token
-    ctx.response.cookie('token', token, {
+    ctx.response.cookie("token", token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365,
+      maxAge: 1000 * 60 * 60 * 24 * 365
     });
     // 5. Return the user
     return user;
   },
   signout(parent, args, ctx, info) {
-    ctx.response.clearCookie('token');
-    return { message: 'Goodbye!' };
+    ctx.response.clearCookie("token");
+    return { message: "Goodbye!" };
   },
   async requestReset(parent, args, ctx, info) {
     // 1. Check if this is a real user
-    const user = await ctx.db.query.user({ where: { email: args.email } });
     if (!user) {
       throw new Error(`No such user found for email ${args.email}`);
     }
     // 2. Set a reset token and expiry on that user
     const randomBytesPromiseified = promisify(randomBytes);
-    const resetToken = (await randomBytesPromiseified(20)).toString('hex');
+    const resetToken = (await randomBytesPromiseified(20)).toString("hex");
     const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
     const res = await ctx.db.mutation.updateUser({
       where: { email: args.email },
-      data: { resetToken, resetTokenExpiry },
+      data: { resetToken, resetTokenExpiry }
     });
     console.log(res);
-    return { message: 'Thanks!' };
+    return { message: "Thanks!" };
     // 3. Email them that reset token
   },
   async resetPassword(parent, args, ctx, info) {
@@ -124,11 +123,11 @@ const Mutations = {
     const [user] = await ctx.db.query.users({
       where: {
         resetToken: args.resetToken,
-        resetTokenExpiry_gte: Date.now() - 3600000,
-      },
+        resetTokenExpiry_gte: Date.now() - 3600000
+      }
     });
     if (!user) {
-      throw new Error('This token is either invalid or expired!');
+      throw new Error("This token is either invalid or expired!");
     }
     // 4. Hash their new password
     const password = await bcrypt.hash(args.password, 10);
@@ -138,19 +137,19 @@ const Mutations = {
       data: {
         password,
         resetToken: null,
-        resetTokenExpiry: null,
-      },
+        resetTokenExpiry: null
+      }
     });
     // 6. Generate JWT
     const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
     // 7. Set the JWT cookie
-    ctx.response.cookie('token', token, {
+    ctx.response.cookie("token", token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365,
+      maxAge: 1000 * 60 * 60 * 24 * 365
     });
     // 8. return the new user
     return updatedUser;
-  },
+  }
 };
 
 module.exports = Mutations;

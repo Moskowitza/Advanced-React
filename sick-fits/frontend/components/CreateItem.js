@@ -32,7 +32,7 @@ class CreateItem extends Component {
     description: "A Nightmare",
     image: "dog.jpg",
     largeImage: "dogg.jpg ",
-    price: 299,
+    price: 299
   };
   //   This event handler works across types
   handleChange = e => {
@@ -50,10 +50,10 @@ class CreateItem extends Component {
     data.append("upload_preset", "sickfits");
     //hit the cloudinary api
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/dextp6klr/image/upload',
+      "https://api.cloudinary.com/v1_1/dextp6klr/image/upload",
       {
         method: "POST",
-        body: data,
+        body: data
       }
     );
     // then we get a response from cloudinary
@@ -62,7 +62,7 @@ class CreateItem extends Component {
     console.log(file);
     this.setState({
       image: file.secure_url,
-      largeImage: file.eager[0].secure_url,
+      largeImage: file.eager[0].secure_url
     });
   };
   render() {
@@ -142,7 +142,7 @@ class CreateItem extends Component {
                 />
               </label>
             </fieldset>
-            <button type="submit">Sumbit</button>
+            <button type="submit">Submit</button>
           </Form>
         )}
       </Mutation>
