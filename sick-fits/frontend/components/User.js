@@ -2,8 +2,6 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import PropTypes from "prop-types";
 
-// This is our own render user props component that we'll use througout the app
-
 const CURRENT_USER_QUERY = gql`
   query {
     me {
@@ -11,16 +9,27 @@ const CURRENT_USER_QUERY = gql`
       email
       name
       permissions
+      cart {
+        id
+        quantity
+        item {
+          id
+          price
+          image
+          title
+          description
+        }
+      }
     }
   }
 `;
 
-// This will just pass the payload right to the children props
 const User = props => (
   <Query {...props} query={CURRENT_USER_QUERY}>
-    {payload => console.log(payload) || props.children(payload)}
+    {payload => props.children(payload)}
   </Query>
 );
+
 User.propTypes = {
   children: PropTypes.func.isRequired
 };

@@ -11,7 +11,7 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/item": [
+    "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
@@ -19,7 +19,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/permissions": [
+    "/signup": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
