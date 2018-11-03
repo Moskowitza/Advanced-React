@@ -14,7 +14,7 @@ server.express.use(cookieParser());
 //TODO use express middelware to populate current user
 server.express.use((req, res, next) => {
   const { token } = req.cookies;
-  console.log(token);
+  // console.log(token);
   if (token) {
     const { userId } = jwt.verify(token, process.env.APP_SECRET);
     //put the userid into the req for future reqs to access

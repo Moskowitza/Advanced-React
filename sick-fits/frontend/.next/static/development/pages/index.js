@@ -449,7 +449,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ", " ) {\n    items(first:$first, skip:$skip, orderBy:createdAt_DESC) {\n      id\n      title\n      price\n      description\n      image\n      largeImage\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ", ") {\n    items(first: $first, skip: $skip, orderBy: createdAt_DESC) {\n      id\n      title\n      price\n      description\n      image\n      largeImage\n    }\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -507,8 +507,8 @@ function (_Component) {
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_1__["Query"], {
-        query: ALL_ITEMS_QUERY,
-        fetchPolicy: "network-only",
+        query: ALL_ITEMS_QUERY // fetchPolicy="network-only"
+        ,
         variables: {
           skip: this.props.page * _config__WEBPACK_IMPORTED_MODULE_6__["perPage"] - _config__WEBPACK_IMPORTED_MODULE_6__["perPage"]
         },
@@ -521,25 +521,24 @@ function (_Component) {
         var data = _ref.data,
             error = _ref.error,
             loading = _ref.loading;
-        console.log(data);
         if (loading) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 49
+            lineNumber: 47
           },
           __self: this
         }, "Loading...");
         if (error) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 50
+            lineNumber: 48
           },
           __self: this
-        }, "Error : ", error.message);
+        }, "Error: ", error.message);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ItemsList, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 52
+            lineNumber: 50
           },
           __self: this
         }, data.items.map(function (item) {
@@ -557,7 +556,7 @@ function (_Component) {
         page: this.props.page,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 56
+          lineNumber: 58
         },
         __self: this
       }));
@@ -634,7 +633,7 @@ var Pagination = function Pagination(props) {
         lineNumber: 22
       },
       __self: this
-    }, "loading");
+    }, "Loading...");
     var count = data.itemsConnection.aggregate.count;
     var pages = Math.ceil(count / _config__WEBPACK_IMPORTED_MODULE_6__["perPage"]);
     var page = props.page;
@@ -656,10 +655,10 @@ var Pagination = function Pagination(props) {
         lineNumber: 29
       },
       __self: this
-    }, "SickFits - page ", page, " of ", pages)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    }, "Sick Fits! \u2014 Page ", page, " of ", pages)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
       prefetch: true,
       href: {
-        pathname: 'items',
+        pathname: "items",
         query: {
           page: page - 1
         }
@@ -674,7 +673,7 @@ var Pagination = function Pagination(props) {
       "aria-disabled": page <= 1,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 39
+        lineNumber: 40
       },
       __self: this
     }, "\u2190 Prev")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -683,16 +682,16 @@ var Pagination = function Pagination(props) {
         lineNumber: 44
       },
       __self: this
-    }, "You are on page ", props.page, " of ", pages), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    }, "Page ", props.page, " of ", pages, "!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
       __source: {
         fileName: _jsxFileName,
         lineNumber: 47
       },
       __self: this
-    }, count, " Items total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    }, count, " Items Total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
       prefetch: true,
       href: {
-        pathname: 'items',
+        pathname: "items",
         query: {
           page: page + 1
         }
@@ -703,14 +702,14 @@ var Pagination = function Pagination(props) {
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-      className: "next",
+      className: "prev",
       "aria-disabled": page >= pages,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 54
+        lineNumber: 55
       },
       __self: this
-    }, " Next \u2192")));
+    }, "Next \u2192")));
   });
 };
 
@@ -30229,7 +30228,7 @@ var Home = function Home(props) {
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -30254,5 +30253,5 @@ module.exports = dll_5d62d38be3592dca3a42;
 
 /***/ })
 
-},[[4,"static/runtime/webpack.js"]]]));;
+},[[3,"static/runtime/webpack.js"]]]));;
 //# sourceMappingURL=index.js.map
